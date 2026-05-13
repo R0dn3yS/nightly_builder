@@ -1,4 +1,4 @@
-import { build, checkUpdateNeeded, clean, clone, logSummary, parsePkgList, sendNotification } from './util.ts';
+import { build, checkUpdateNeeded, clean, clone, logSummary, parsePkgList, rebuildRepo, sendNotification } from './util.ts';
 
 const pkglist = parsePkgList('pkglist');
 
@@ -36,3 +36,4 @@ async function updateAur() {
 }
 
 await updateAur();
+await rebuildRepo();
