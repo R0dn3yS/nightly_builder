@@ -1,7 +1,7 @@
 import { git } from '@roka/git';
 import { green, red, yellow } from '@std/fmt/colors';
 import { existsSync } from 'node:fs';
-import { config } from "../config.ts";
+import { config } from '../config.ts';
 
 export function parsePkgList(file: string): string[] {
   return Deno.readTextFileSync(file).trim().split('\n');
