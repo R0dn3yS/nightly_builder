@@ -38,7 +38,7 @@ export function clean() {
 }
 
 export function checkUpdateNeeded(pkg: string): boolean {
-  if (!existsSync(`cache/${pkg}.pkgbuild`)) return true;
+  if (!existsSync(`cache/${pkg}.pkgbuild`) || pkg.endsWith('-git')) return true;
 
   const cachedPkgbuild = Deno.readTextFileSync(`cache/${pkg}.pkgbuild`);
   const newPkgbuild = Deno.readTextFileSync(`aur/${pkg}/PKGBUILD`);
