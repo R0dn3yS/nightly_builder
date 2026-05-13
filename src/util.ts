@@ -85,3 +85,17 @@ export async function sendNotification(title: string, message: string, priority:
     })
   });
 }
+
+export async function rebuildRepo() {
+  const cwd = Deno.cwd();
+
+  Deno.chdir(config.repo_path);
+
+  const buildCommand = new Deno.Command(`${cwd}/scripts/rebuild.sh`);
+
+  const child = buildCommand.spawn();
+
+  await child.status;
+
+  Deno.chdir(cwd);
+}
