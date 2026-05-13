@@ -91,7 +91,9 @@ export async function rebuildRepo() {
 
   Deno.chdir(config.repo_path);
 
-  const buildCommand = new Deno.Command(`${cwd}/scripts/rebuild.sh`);
+  const buildCommand = new Deno.Command(`${cwd}/scripts/rebuild.sh`, {
+    args: [ config.repo_path ]
+  });
 
   const child = buildCommand.spawn();
 
