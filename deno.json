@@ -1,0 +1,9 @@
+{
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "update": "deno run -A src/update.ts"
+  },
+  "imports": {
+    "@roka/git": "jsr:@roka/git@^0.4.0"
+  }
+}
