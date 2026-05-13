@@ -5,6 +5,7 @@
     "jsr:@roka/maybe@0.1": "0.1.0",
     "jsr:@std/assert@^1.0.19": "1.0.19",
     "jsr:@std/collections@^1.1.6": "1.1.7",
+    "jsr:@std/fmt@^1.0.10": "1.0.10",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@std/path@^1.1.4": "1.1.4",
     "jsr:@std/semver@^1.0.8": "1.0.8"
@@ -35,6 +36,9 @@
     "@std/collections@1.1.7": {
       "integrity": "56f659d011218a69740b12829cf5ea2c9b70bbed0af02597e27dc1eb5e69e208"
     },
+    "@std/fmt@1.0.10": {
+      "integrity": "90dfba288802ac6de82fb31d0917eb9e4450b9925b954d5e51fc29ac07419db5"
+    },
     "@std/internal@1.0.12": {
       "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
     },
@@ -50,7 +54,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@roka/git@0.4"
+      "jsr:@roka/git@0.4",
+      "jsr:@std/fmt@^1.0.10"
     ]
   }
 }

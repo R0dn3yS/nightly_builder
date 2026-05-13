@@ -4,6 +4,7 @@
     "update": "deno run -A src/update.ts"
   },
   "imports": {
-    "@roka/git": "jsr:@roka/git@^0.4.0"
+    "@roka/git": "jsr:@roka/git@^0.4.0",
+    "@std/fmt": "jsr:@std/fmt@^1.0.10"
   }
 }

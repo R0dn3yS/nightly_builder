@@ -4,3 +4,5 @@ aur
 custom
 output
 pkglist
+node_modules
+config.ts
