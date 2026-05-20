@@ -7,8 +7,14 @@ export function parsePkgList(file: string): string[] {
   return Deno.readTextFileSync(file).trim().split('\n');
 }
 
-export async function clone(pkg: string) {
+export async function cloneAur(pkg: string) {
   await git().clone(`https://aur.archlinux.org/${pkg}.git`, {
+    directory: `aur/${pkg}`
+  });
+}
+
+export async function cloneCustom(pkg: string, server: string) {
+  await git().clone(`${server}/${pkg}.git`, {
     directory: `aur/${pkg}`
   });
 }
