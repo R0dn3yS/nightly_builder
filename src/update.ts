@@ -134,7 +134,10 @@ if (Deno.args.length === 0) {
         Deno.exit(0);
       }
 
-      default: console.error(`Invalid option: ${arg}`);
+      default: {
+        console.error(`Invalid option: ${arg}`);
+        Deno.exit(1);
+      }
     }
   }
 }
