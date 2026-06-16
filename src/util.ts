@@ -107,3 +107,33 @@ export async function rebuildRepo() {
 
   Deno.chdir(cwd);
 }
+
+export async function buildAur(pkg: string) {
+  await cloneAur(pkg);
+
+  const buildStatus = await build(`aur/${pkg}`);
+
+  if (buildStatus) {
+    console.log(`${pkg} has successfully finished building.`);
+    Deno.copyFileSync(`aur/${pkg}/PKGBUILD`, `cache/${pkg}.pkgbuild`);
+    await sendNotification('Nightly Builder', `${pkg} has been built successfully.`)
+  } else {
+    console.log(`${pkg} has failed to build.`);
+    await sendNotification('Nightly Builder', `${pkg} has failed building.`)
+  }
+}
+
+export async function buildCustom(pkg: string) {
+  await cloneCustom(pkg, 'https://git.iusearchbtw.nl/packages');
+
+  const buildStatus = await build(`aur/${pkg}`);
+
+  if (buildStatus) {
+    console.log(`${pkg} has successfully finished building.`);
+    Deno.copyFileSync(`aur/${pkg}/PKGBUILD`, `cache/${pkg}.pkgbuild`);
+    await sendNotification('Nightly Builder', `${pkg} has been built successfully.`)
+  } else {
+    console.log(`${pkg} has failed to build.`);
+    await sendNotification('Nightly Builder', `${pkg} has failed building.`)
+  }
+}

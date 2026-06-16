@@ -1,4 +1,4 @@
-import { build, checkUpdateNeeded, clean, cloneAur, cloneCustom, logSummary, parsePkgList, rebuildRepo, sendNotification } from './util.ts';
+import { build, buildAur, buildCustom, checkUpdateNeeded, clean, cloneAur, cloneCustom, logSummary, parsePkgList, rebuildRepo, sendNotification } from './util.ts';
 
 async function updateAur() {
   const pkglist = parsePkgList('aurlist');
@@ -70,6 +70,71 @@ async function updateCustom() {
   await sendNotification('Nightly Builder Custom', 'Nightly Builder has finished.');
 }
 
-await updateAur();
-await updateCustom();
-await rebuildRepo();
+function sendHelpMessage() {
+  const helpString = `nightly builder 0.1.0
+
+Usage: deno run update [options]
+
+Options:
+  --aur <package>     Build a package from the aur
+  --clean             Clean the package cache and exit
+  --custom <package>  Build a package from the custom repo
+  --help              Show this help message and exit`;
+
+  return console.log(helpString);
+}
+
+if (Deno.args.length === 0) {
+  await updateAur();
+  await updateCustom();
+  await rebuildRepo();
+} else {
+  for (let i = 0; i < Deno.args.length; i++) {
+    const arg = Deno.args[i];
+
+    switch (Deno.args[i]) {
+      case '--help': {
+        sendHelpMessage();
+        Deno.exit(0);
+      }
+
+      
+      // deno-lint-ignore no-fallthrough
+      case '--aur': {
+        const pkg = Deno.args[i + 1];
+        
+        if (!pkg) {
+          console.error('No package specified');
+          Deno.exit(1);
+        }
+
+        await buildAur(pkg);
+        await rebuildRepo();
+        clean();
+        Deno.exit(0);
+      }
+
+      case '--custom': {
+        const pkg = Deno.args[i + 1];
+        
+        if (!pkg) {
+          console.error('No package specified');
+          Deno.exit(1);
+        }
+
+        await buildCustom(pkg);
+        await rebuildRepo();
+        clean();
+        Deno.exit(0);
+      }
+
+      // deno-lint-ignore no-fallthrough
+      case '--clean': {
+        clean();
+        Deno.exit(0);
+      }
+
+      default: console.error(`Invalid option: ${arg}`);
+    }
+  }
+}
